@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Даша + Андрій</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#008080;font:13px/1.35 Tahoma,"MS Sans Serif",Arial,sans-serif;color:#000}
+body{padding:10px 8px 48px}
+.win{max-width:640px;margin:0 auto;background:#c0c0c0;border:2px solid;border-color:#fff #000 #000 #fff;box-shadow:inset -1px -1px #808080,inset 1px 1px #dfdfdf;padding:3px}
+.tb{background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font-weight:bold;padding:3px 4px;display:flex;justify-content:space-between;align-items:center}
+.btns span{display:inline-block;width:16px;height:14px;background:#c0c0c0;color:#000;text-align:center;font-size:10px;line-height:12px;margin-left:2px;border:1px solid;border-color:#fff #000 #000 #fff}
+.menu{padding:3px 6px;display:flex;gap:14px}
+.box{background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;margin:3px 0;padding:8px}
+h2{margin:0 0 6px;font-size:13px}
+.prog{height:20px;border:2px solid;border-color:#808080 #fff #fff #808080;padding:2px;display:flex;gap:2px;background:#fff}
+.prog i{flex:1;background:#000080}.prog i.e{background:transparent}
+ul{list-style:none;margin:0;padding:0}
+li{padding:4px 2px;display:flex;gap:8px;align-items:center}
+li.done b{font-weight:normal}
+li.done::before{content:"✔";color:#008000;font-weight:bold}
+li.open::before{content:"⏳"}
+li.lock{cursor:pointer}
+li.lock::before{content:"🔒"}
+li.lock b{filter:blur(6px);user-select:none;font-weight:normal}
+li.lock:hover{background:#000080}
+.status{display:flex;gap:3px;margin-top:3px}.status div{flex:1;border:1px solid;border-color:#808080 #fff #fff #808080;padding:2px 6px}
+.dlg{display:none;z-index:100!important;position:fixed;inset:0;background:rgba(0,0,0,.25);align-items:center;justify-content:center;z-index:9}
+.dlg.on{display:flex}
+.dlg .win{width:min(320px,92vw)}
+.dlg p{margin:14px 10px;display:flex;gap:12px;align-items:center}
+.ok{display:block;margin:8px auto 6px;min-width:80px;padding:4px 10px;background:#c0c0c0;font:inherit;border:2px solid;border-color:#fff #000 #000 #fff}
+.ok:active{border-color:#000 #fff #fff #000}
+.task{position:fixed;left:0;right:0;bottom:0;padding:3px 3px calc(3px + env(safe-area-inset-bottom,0px));background:#c0c0c0;border-top:2px solid #fff;display:flex;justify-content:space-between;align-items:center}
+.task span{border:2px solid;border-color:#fff #000 #000 #fff;padding:3px 8px;font-weight:bold}
+.task em{font-style:normal;border:1px solid;border-color:#808080 #fff #fff #808080;padding:3px 8px}
+body{background:transparent!important}
+html{background-attachment:fixed}
+html[data-wp=blue]{background:radial-gradient(#4a7be0 1px,transparent 1.5px) 0 0/12px 12px,#0b2a9e}
+html[data-wp=stone]{background:linear-gradient(90deg,#4a4a28 4px,transparent 4px) 0 0/16px 16px,linear-gradient(#4a4a28 4px,transparent 4px) 0 0/16px 16px,linear-gradient(90deg,transparent 8px,#9a9a62 8px 12px,transparent 12px) 0 0/32px 32px,#7b7b46}
+html[data-wp=thatch]{background:repeating-linear-gradient(0deg,#6a6a6a 0 2px,#111 2px 6px) 0 0/24px 24px,repeating-linear-gradient(90deg,#555 0 2px,#161616 2px 6px) 12px 12px/24px 24px,#1a1a1a}
+html[data-wp=tiles]{background:linear-gradient(#2a0805 3px,transparent 3px) 0 0/40px 40px,linear-gradient(90deg,#2a0805 3px,transparent 3px) 0 0/40px 40px,radial-gradient(#d4503c 2px,transparent 3px) 8px 8px/10px 10px,#8a1f12}
+.sw{display:flex;gap:8px;flex-wrap:wrap;padding:8px}
+.sw label{width:calc(50% - 4px);font-size:12px;cursor:pointer}
+.sw i{display:block;height:46px;border:2px solid;border-color:#808080 #fff #fff #808080;margin-bottom:3px}
+.sw input:checked+i{outline:2px dotted #000;outline-offset:1px}
+.sw input{position:absolute;opacity:0}
+.sw .a{background:#0b2a9e}.sw .b{background:#7b7b46}.sw .c{background:#1a1a1a}.sw .d{background:#8a1f12}
+.dlg.big .win{width:min(520px,96vw);max-height:88vh;overflow:auto}
+.r{display:flex;gap:6px;align-items:center;padding:3px 0;border-bottom:1px dotted #808080}.r span{flex:1;word-break:break-word}
+.r button,.bt{background:#c0c0c0;font:inherit;border:2px solid;border-color:#fff #000 #000 #fff;padding:2px 8px;cursor:pointer}
+input[type=text],input[type=password],select{font:inherit;border:2px solid;border-color:#808080 #fff #fff #808080;background:#fff;padding:2px 4px;max-width:100%}
+.add{display:flex;gap:6px;flex-wrap:wrap;padding:8px 0}.add input{flex:1;min-width:120px}
+.key{flex:0 0 auto!important;cursor:pointer;text-align:center}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes slide{from{transform:translateX(-14px);opacity:0}to{transform:none;opacity:1}}
+@keyframes blk{from{opacity:0}to{opacity:1}}
+@keyframes march{from{margin-left:-70px}to{margin-left:100%}}
+@keyframes wob{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+body>.win{animation:pop .4s steps(7) both}
+.dlg.on .win{animation:shake .35s}
+li{animation:slide .3s steps(4) both;animation-delay:calc(var(--i,0)*45ms + .5s)}
+.prog i:not(.e){animation:blk .15s steps(2) both;animation-delay:calc(var(--k,0)*70ms + .9s)}
+li.lock{cursor:wait}li.lock:hover::before{display:inline-block;animation:wob .3s infinite}
+.task span:active{border-color:#000 #fff #fff #000}
+.boot{position:fixed;inset:0;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;z-index:99;transition:opacity .5s}
+.boot.gone{opacity:0;pointer-events:none}
+.boot b{display:block;font:bold clamp(20px,7vw,30px)/1.2 "Times New Roman",serif;font-style:italic;margin-bottom:18px}
+.bp{width:230px;height:18px;margin:0 auto 12px;border:2px solid #888;padding:2px;overflow:hidden;border-radius:4px}
+.bp u{display:block;height:100%;background:repeating-linear-gradient(90deg,#2d6bf0 0 10px,transparent 10px 13px);width:0}
+@keyframes fill{from{width:0}to{width:100%}}
+#ss{display:none;position:fixed;inset:0;width:100%;height:100%;background:#000;z-index:98}#ss.on{display:block}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+html{color-scheme:light}
+input,select,button,option{color:#000!important;-webkit-text-fill-color:#000;background-color:#fff}
+button,.ok,.bt{background-color:#c0c0c0}
+input[type=text],select{background-color:#fff!important}
+li.idea::before{content:"💡"}
+.wz{display:flex;gap:10px;padding:8px}.wl{flex:0 0 96px;min-height:170px;background:linear-gradient(180deg,#000080,#1084d0);display:flex;align-items:center;justify-content:center;font-size:46px;animation:wob 1.6s infinite}
+.wr{flex:1;min-width:0}.wr h3{margin:0 0 8px;font-size:15px}.wr p{margin:0;display:block!important;min-height:76px}
+.wb{display:flex;gap:6px;justify-content:flex-end;padding:6px 8px 8px;border-top:1px solid #808080}
+.wb button{min-width:76px}.wb button:disabled{color:#808080!important;-webkit-text-fill-color:#808080}
+.stp{font-size:11px;color:#444;margin-top:8px}
+@keyframes fly{from{transform:translateX(-60px)}to{transform:translateX(calc(100vw + 60px))}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-18px) rotate(6deg)}}
+.fl{position:fixed;left:0;z-index:6;font-size:34px;pointer-events:none;animation:fly 13s linear forwards}
+.fl i{display:block;font-style:normal;animation:bob 1.2s ease-in-out infinite}
+#cat{position:fixed;left:0;top:0;z-index:50;font-size:30px;pointer-events:none;will-change:transform}
+</style></head><body>
+<div class="boot" id="boot" onclick="bootEnd()"><div><b><span style="color:#f33">■</span><span style="color:#3c3">■</span><span style="color:#39f">■</span><span style="color:#fc0">■</span> Даша Андрій</b><div class="bp"><u></u></div><small>Завантаження спільних активностей… <span id="bpc">0%</span></small></div></div>
+<script>
+(function(){var b=document.getElementById("boot"),c=document.getElementById("bpc"),u=b.querySelector(".bp u"),t0=Date.now(),done=false,iv;
+function end(){if(done)return;done=true;clearInterval(iv);b.className="boot gone";setTimeout(function(){b.style.display="none"},600);try{if(window.onbAuto)window.onbAuto()}catch(e){}}
+window.bootEnd=end;
+iv=setInterval(function(){var p=Math.min(100,Math.round((Date.now()-t0)/50));c.textContent=p+"%";u.style.width=(Math.floor(p/5)*5)+"%";if(p>=100)end()},100);
+setTimeout(end,5800);
+})();
+</script>
+<canvas id="ss"></canvas>
+<div class="win">
+ <div class="tb"><span>🦄 Даша_Андрій.exe</span><span class="btns"><span>_</span><span>□</span><span>×</span></span></div>
+ <div class="menu"><span>Файл</span><span>Правка</span><span onclick="wp.classList.add('on')" style="cursor:pointer"><u>Ш</u>палери…</span><span onclick="onbShow()" style="cursor:pointer">Довідка</span></div>
+ <div class="box"><h2>Прогрес спільних активностей</h2><div class="prog" id="p"></div></div>
+ <div class="box"><h2>📁 Done</h2><ul id="d"></ul></div>
+ <div class="box"><h2>📁 Не секретно</h2><ul id="o"></ul><div class="add" id="da" style="display:none"><input type="text" id="di" placeholder="Запропонуй ідею…" onkeydown="if(event.key==='Enter')dAdd()"><button class="bt" onclick="dAdd()">Додати</button></div></div>
+ <div class="box"><h2>📁 Секретно</h2><ul id="l"></ul></div>
+ <div class="status"><div id="s1"></div><div>Готово ❤</div></div>
+</div>
+<div class="dlg" id="dlg"><div class="win"><div class="tb"><span>Помилка</span><span class="btns"><span>×</span></span></div>
+ <p><span style="font-size:32px">⚠️</span><span>Цей пункт поки є секретним. Чекай на запрошення 💌</span></p>
+ <button class="ok" onclick="dlg.classList.remove('on')">OK</button></div></div>
+<div class="dlg" id="wp"><div class="win"><div class="tb"><span>🖼 Властивості: Екран</span><span class="btns"><span>×</span></span></div>
+ <div class="sw">
+ <label><input type="radio" name="w" value="blue"><i class="a"></i>Businesslike blue</label>
+ <label><input type="radio" name="w" value="stone" checked><i class="b"></i>Classically carved stone</label>
+ <label><input type="radio" name="w" value="thatch"><i class="c"></i>Black thatch</label>
+ <label><input type="radio" name="w" value="tiles"><i class="d"></i>Red tiles</label></div>
+ <button class="ok" onclick="wp.classList.remove('on')">OK</button></div></div>
+<div class="dlg" id="pwd"><div class="win"><div class="tb"><span>🔑 Вхід</span><span class="btns"><span onclick="pwd.classList.remove('on')">×</span></span></div>
+ <p style="display:block;margin:12px">Пароль:<br><input type="text" id="pw" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" style="width:100%;-webkit-text-security:disc;text-security:disc" onkeydown="if(event.key==='Enter')pwChk()"><br><small id="pwe" style="color:#a00"></small></p>
+ <button class="ok" onclick="pwChk()">OK</button></div></div>
+<div class="dlg big" id="adm"><div class="win"><div class="tb"><span>⚙ Адмін — Спільний час</span><span class="btns"><span onclick="adm.classList.remove('on')">×</span></span></div>
+ <div class="box"><div id="ar"></div>
+ <div class="add"><input type="text" id="nt" placeholder="Нова ідея…"><select id="ns"><option value="l">Секретно</option><option value="o">Не секретно</option><option value="d">Done</option></select><button class="bt" onclick="addIt()">Додати</button></div></div>
+ <button class="ok" id="sv" onclick="save()">Зберегти й опублікувати</button></div></div>
+<div class="dlg" id="onb"><div class="win"><div class="tb"><span>🧙 єбєйший онбордінг</span><span class="btns"><span onclick="onbEnd()">×</span></span></div>
+ <div class="wz"><div class="wl" id="onbI"></div><div class="wr"><h3 id="onbT"></h3><p id="onbX"></p><div class="stp" id="onbS"></div></div></div>
+ <div class="wb"><button class="bt" id="onbB" onclick="ob--;onbR()">&lt; Назад</button><button class="bt" id="onbN" onclick="onbNext()">Далі &gt;</button><button class="bt" onclick="onbEnd()">Пропустити</button></div></div></div>
+<div class="task"><span>⊞ Пуск</span><em id="c"></em></div>
+<script id="state" type="application/json">[{"t": "Готель Україна бар", "s": "d"}, {"t": "Винний / сирний тур", "s": "d"}, {"t": "Балико-щучинка, Витачів, Канів", "s": "d"}, {"t": "Підпільний стендап", "s": "d"}, {"t": "Воздвіженка", "s": "d"}, {"t": "Львів, Дрогобич", "s": "d"}, {"t": "Шашлик на заправці", "s": "d"}, {"t": "Sportcafe", "s": "d"}, {"t": "Ukraine WOW", "s": "d"}, {"t": "Кирилівська церква", "s": "o"}, {"t": "Київська картинна галерея (дедлайн: листопад)", "s": "o"}, {"t": "Сюрприз №1", "s": "l"}, {"t": "Сюрприз №2", "s": "l"}, {"t": "Сюрприз №3", "s": "l"}, {"t": "Сюрприз №4", "s": "l"}, {"t": "Сюрприз №5", "s": "l"}, {"t": "Сюрприз №6", "s": "l"}, {"t": "Сюрприз №7", "s": "l"}, {"t": "Сюрприз №8", "s": "l"}, {"t": "Сюрприз №9", "s": "l"}, {"t": "Сюрприз №10", "s": "l"}, {"t": "Сюрприз №11", "s": "l"}, {"t": "Сюрприз №12", "s": "l"}, {"t": "Сюрприз №13", "s": "l"}, {"t": "Сюрприз №14", "s": "l"}, {"t": "Сюрприз №15", "s": "l"}, {"t": "Сюрприз №16", "s": "l"}, {"t": "Сюрприз №17", "s": "l"}, {"t": "Сюрприз №18", "s": "l"}, {"t": "Сюрприз №19", "s": "l"}, {"t": "Сюрприз №20", "s": "l"}, {"t": "Сюрприз №21", "s": "l"}, {"t": "Сюрприз №22", "s": "l"}, {"t": "Сюрприз №23", "s": "l"}, {"t": "Сюрприз №24", "s": "l"}, {"t": "Сюрприз №25", "s": "l"}]</script>
+<script>
+let IDEAS=[],DB=null;
+const S=JSON.parse(document.getElementById("state").textContent);
+const $=id=>document.getElementById(id);
+const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const g=k=>S.filter(x=>x.s===k);
+function render(){
+ $("d").innerHTML=g("d").map((x,i)=>`<li style="--i:${i}" class="done"><b>${esc(x.t)}</b></li>`).join("");
+ $("o").innerHTML=g("o").map((x,i)=>`<li style="--i:${i}" class="open"><b>${esc(x.t)}</b></li>`).join("")+IDEAS.map(x=>`<li class="open idea"><b>${esc(x.t)}</b></li>`).join("");
+ $("l").innerHTML=g("l").map((x,i)=>`<li style="--i:${i}" class="lock" onclick="dlg.classList.add('on')"><b>${esc(x.t)}</b></li>`).join("");
+ const n=g("d").length,tot=S.length+IDEAS.length,B=20,f=Math.round(n/Math.max(tot,1)*B);
+ $("p").innerHTML=Array.from({length:B},(_,i)=>`<i style="--k:${i}" class="${i<f?"":"e"}"></i>`).join("");
+ $("s1").textContent=`Виконано ${n} з ${tot}`;
+}
+render();
+const PW=String(Math.random())+Date.now();
+function pwOpen(){$("pw").value="";$("pwe").textContent="";pwd.classList.add("on");setTimeout(()=>$("pw").focus(),60)}
+function pwChk(){if($("pw").value===PW){pwd.classList.remove("on");rows();adm.classList.add("on")}else $("pwe").textContent="Невірний пароль"}
+const OP=[["d","Done"],["o","Не секретно"],["l","Секретно"]];
+function rows(){$("ar").innerHTML=S.map((x,i)=>`<div class="r"><select onchange="S[${i}].s=this.value">${OP.map(o=>`<option value="${o[0]}"${o[0]===x.s?" selected":""}>${o[1]}</option>`).join("")}</select><span>${esc(x.t)}</span><button onclick="S.splice(${i},1);rows()">×</button></div>`).join("")+(IDEAS.length?`<div class="r"><b>💡 Ідеї від Даші:</b></div>`:"")+IDEAS.map((x,i)=>`<div class="r"><span>${esc(x.t)}</span><button onclick="mvIdea(${i})">→ в список</button><button onclick="dlIdea(${i})">×</button></div>`).join("")}
+function addIt(){const t=$("nt").value.trim();if(!t)return;S.push({t,s:$("ns").value});$("nt").value="";rows()}
+async function save(){
+ let a=null;try{a=await claude.use("artifact")}catch(e){}
+ if(!a){alert("У цій версії збереження немає. Напиши Claude, що змінити.");return}
+ const c=document.documentElement.cloneNode(true);
+ c.querySelector("#state").textContent=JSON.stringify(S).replace(/</g,"\\u003c");
+ ["d","o","l","p","ar","s1"].forEach(i=>c.querySelector("#"+i).innerHTML="");
+ c.querySelectorAll(".fl,#cat").forEach(e=>e.remove());c.querySelector("#boot").className="boot";c.querySelector(".bp u").removeAttribute("style");c.querySelector("#bpc").textContent="0%";c.querySelector("#da").style.display="none";c.querySelector("#boot").removeAttribute("style");c.querySelector("#pw").value="";c.querySelector("#ss").className="";c.querySelectorAll(".dlg").forEach(e=>e.classList.remove("on"));
+ try{await a.publish("<!DOCTYPE html>\n"+c.outerHTML)}catch(e){if(e&&e.code!=="conflict")alert("Не вдалось зберегти: "+(e.message||e.code))}
+}
+const root=document.documentElement;
+function setW(v){root.dataset.wp=v;try{localStorage.setItem("wp2",v)}catch(e){}}
+let w0="stone";try{w0=localStorage.getItem("wp2")||"stone"}catch(e){}
+setW(w0);
+document.querySelectorAll("input[name=w]").forEach(r=>{r.checked=r.value===w0;r.onchange=()=>setW(r.value)});
+const tick=()=>$("c").textContent=new Date().toLocaleTimeString("uk",{hour:"2-digit",minute:"2-digit"});tick();setInterval(tick,3e4);
+
+const cv=$("ss"),cx=cv.getContext("2d");let st=[],raf=0,idle=0;
+function ssStart(){cv.width=innerWidth;cv.height=innerHeight;st=Array.from({length:160},()=>({x:Math.random()*2-1,y:Math.random()*2-1,z:Math.random()}));cv.classList.add("on");let tx=0;
+ const f=()=>{cx.fillStyle="#000";cx.fillRect(0,0,cv.width,cv.height);const W=cv.width/2,H=cv.height/2;
+ st.forEach(p=>{p.z-=.006;if(p.z<=0){p.x=Math.random()*2-1;p.y=Math.random()*2-1;p.z=1}const k=1/p.z,x=W+p.x*W*k*.4,y=H+p.y*H*k*.4,r=Math.max(.5,2.5-p.z*2);cx.fillStyle="#fff";cx.fillRect(x,y,r,r)});
+ tx+=1.2;cx.fillStyle="#fc0";cx.font="bold 28px Tahoma";cx.textAlign="center";cx.fillText("Даша ❤ Андрій",W,H+Math.sin(tx/30)*60);raf=requestAnimationFrame(f)};f()}
+function wake(){if(cv.classList.contains("on")){cv.classList.remove("on");cancelAnimationFrame(raf)}clearTimeout(idle);idle=setTimeout(ssStart,30000)}
+["mousemove","keydown","touchstart","click","scroll"].forEach(e=>addEventListener(e,wake,{passive:true}));wake();
+
+async function dAdd(){const t=$("di").value.trim().slice(0,120);if(!t||!DB)return;
+ try{await DB.collection("ideas").add({t,ts:Date.now()});$("di").value=""}catch(e){$("da").style.display="none";alert("Додавати ідеї можуть лише запрошені учасники.")}}
+async function dlIdea(i){try{await DB.collection("ideas").doc(IDEAS[i].id).delete()}catch(e){}}
+async function mvIdea(i){const x=IDEAS[i];S.push({t:x.t,s:"o"});await dlIdea(i);rows()}
+
+const ON=[["💾","Велкам!","Це наш спільний список пригод."],["✔","Done","Усе, що вже було."],["💡","Не секретно","Тут ідеї, які не є секретними. Можна додавати свої."],["🔒","Секретно","Приховані ідеї, які Андрій собі десь записав і планує колись реалізувати."],["🖼","Ще дрібниці","Шпалери змінюються в меню «Шпалери…», а якщо довго нічого не чіпати, увімкнеться скрінсейвер."]];
+let ob=0,obDone=false;
+function onbR(){const o=ON[ob];$("onbI").textContent=o[0];$("onbT").textContent=o[1];$("onbX").textContent=o[2];$("onbS").textContent="Крок "+(ob+1)+" з "+ON.length;$("onbB").disabled=ob===0;$("onbN").textContent=ob===ON.length-1?"Готово":"Далі >"}
+function onbShow(){ob=0;onbR();onb.classList.add("on")}
+function onbEnd(){onb.classList.remove("on");try{localStorage.setItem("onb","1")}catch(e){}}
+function onbNext(){if(ob===ON.length-1)onbEnd();else{ob++;onbR()}}
+function onbAuto(){if(obDone)return;obDone=true;let v=null;try{v=localStorage.getItem("onb")}catch(e){}if(!v)setTimeout(onbShow,700)}
+
+(function(){
+ if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ const cat=document.createElement("div");cat.id="cat";cat.textContent="🐈";document.body.appendChild(cat);
+ let mx=innerWidth*.7,my=innerHeight*.7,x=40,y=innerHeight-80,dir=1;
+ const set=e=>{const p=e.touches?e.touches[0]:e;mx=p.clientX;my=p.clientY};
+ addEventListener("mousemove",set,{passive:true});addEventListener("touchstart",set,{passive:true});addEventListener("touchmove",set,{passive:true});
+ (function step(){const dx=mx-x,dy=my-y,d=Math.hypot(dx,dy);
+  if(d>46){x+=dx/d*3.2;y+=dy/d*3.2;if(Math.abs(dx)>2)dir=dx>0?-1:1}
+  cat.style.transform=`translate(${x-16}px,${y-16+(d>46?Math.sin(Date.now()/70)*3:0)}px) scaleX(${dir})`;
+  requestAnimationFrame(step)})();
+ const A=["🦄","🐱","🦄","🐈","😺","🌈","🦄"];
+ setInterval(()=>{if(document.hidden)return;const f=document.createElement("div");f.className="fl";f.style.top=(12+Math.random()*70)+"vh";f.innerHTML="<i>"+A[Math.floor(Math.random()*A.length)]+"</i>";document.body.appendChild(f);setTimeout(()=>f.remove(),14000)},3500);
+})();
+</script></body></html>
